@@ -800,7 +800,7 @@ export default {
      * @param  {Object} e The event object
      */
     onDrag(e) {
-      e.preventDefault()
+      
       const eventPosX = this.isTouch ? e.touches[0].clientX : e.clientX;
       const eventPosY = this.isTouch ? e.touches[0].clientY : e.clientY;
       const newOffsetX = this.dragStartX - eventPosX;
@@ -812,6 +812,7 @@ export default {
         return;
       }
 
+      e.preventDefault()
       e.stopImmediatePropagation();
 
       this.dragOffset = newOffsetX;
