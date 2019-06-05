@@ -1,12 +1,6 @@
 <template>
-  <div
-    class="VueCarousel"
-    v-bind:class="{ 'VueCarousel--reverse': paginationPosition === 'top' }"
-  >
-    <div
-      class="VueCarousel-wrapper"
-      ref="VueCarousel-wrapper"
-    >
+  <div class="VueCarousel" v-bind:class="{ 'VueCarousel--reverse': paginationPosition === 'top' }">
+    <div class="VueCarousel-wrapper" ref="VueCarousel-wrapper">
       <div
         ref="VueCarousel-inner"
         :class="[
@@ -404,8 +398,8 @@ export default {
       const breakpointArray = this.perPageCustom;
       const width = this.browserWidth;
 
-      const breakpoints = breakpointArray.sort(
-        (a, b) => (a[0] > b[0] ? -1 : 1)
+      const breakpoints = breakpointArray.sort((a, b) =>
+        a[0] > b[0] ? -1 : 1
       );
 
       // Reduce the breakpoints to entries where the width is in range
@@ -800,7 +794,6 @@ export default {
      * @param  {Object} e The event object
      */
     onDrag(e) {
-      
       const eventPosX = this.isTouch ? e.touches[0].clientX : e.clientX;
       const eventPosY = this.isTouch ? e.touches[0].clientY : e.clientY;
       const newOffsetX = this.dragStartX - eventPosX;
@@ -808,11 +801,12 @@ export default {
 
       // if it is a touch device, check if we are below the min swipe threshold
       // (if user scroll the page on the component)
-      if (this.isTouch && Math.abs(newOffsetX) < Math.abs(newOffsetY)) {
-        return;
+
+      if (newOffsetX > 20 || newOffsetX < -20) {
+        // disables vertical scroll on android devices
+        e.preventDefault();
       }
 
-      e.preventDefault()
       e.stopImmediatePropagation();
 
       this.dragOffset = newOffsetX;
